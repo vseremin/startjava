@@ -65,17 +65,17 @@ public class CyclesTheme {
             System.out.printf("%3d ", 0);
         }
 
-        System.out.println("\n5. Проверка количества единиц на четность");
+        System.out.println("\n\n5. Проверка количества единиц на четность");
         num1 = 3141591;
         int copyNum1 = num1;
         int countOnes = 0;
         while (num1 != 0) {
             if (num1 % 10 == 1) {
-                sum++;
+                countOnes++;
             }
             num1 /= 10;
         }
-        if (num2 % 2 == 0) {
+        if (countOnes % 2 == 0) {
             System.out.println("число " + copyNum1 + " содержит " + countOnes + 
                     " (четное) количество единиц");
         } else {
