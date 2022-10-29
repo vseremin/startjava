@@ -186,8 +186,9 @@ public class CyclesTheme {
                 }
             }
             System.out.println();
-            if(i == 1)
+            if (i == 1) {
                 System.out.println("-------------------------------------");
+            }
         }
     }
 }
