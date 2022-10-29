@@ -150,11 +150,11 @@ public class CyclesTheme {
         System.out.println("\n9. Определение, является ли число счастливым");
         num1 = 127321;
         int bottomHalf = num1 % 1000;
-        int copyNum = num1;
+        copyNum1 = num1;
         while (num1 > 1000) {
             num1 /= 10;
         }
-        copyNum1 = num1;
+        int topHalf = num1;
         int copyBottomHalf = bottomHalf;
         int sumTopHalf = 0;
         int sumBottomHalf = 0;
@@ -170,8 +170,8 @@ public class CyclesTheme {
         } else {
             happyOrNot = " не является счастливым";
         }
-        System.out.println("Сумма цифр " + copyNum1 + " = " + sumTopHalf + "\nСумма цифр " + 
-                copyBottomHalf + " = " + sumBottomHalf +"\nЧисло " + copyNum + happyOrNot);
+        System.out.println("Сумма цифр " + topHalf + " = " + sumTopHalf + "\nСумма цифр " + 
+                copyBottomHalf + " = " + sumBottomHalf +"\nЧисло " + copyNum1 + happyOrNot);
 
         System.out.println("\n10. Вывод таблицы умножения Пифагора");
         num1 = 10;
