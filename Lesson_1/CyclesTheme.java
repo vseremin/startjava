@@ -50,10 +50,10 @@ public class CyclesTheme {
         System.out.println("\nСумма = " + sum);
 
         System.out.println("\n4. Вывод чисел на консоль в несколько строк");
-        int beginIntervalValue = 1;
-        int endIntervalValue = 24;
+        int beginInterval = 1;
+        int endInterval = 24;
         int countNums = 0; 
-        for (int i = beginIntervalValue; i < endIntervalValue; i += 2) {
+        for (int i = beginInterval; i < endInterval; i += 2) {
             System.out.printf("%3d ", i);
             countNums++;
             if ((i + 1) % 10 == 0) {
@@ -102,21 +102,21 @@ public class CyclesTheme {
                 numberSign--;
             }
         }
-        int incrementOrDecriment = 1;
-        int numberPrintedDollar = 1;
-        int numberDollarSigns = 1;
+        int step = 1;
+        numberPrintedSign = 1;
+        numberSign = 1;
         do {
             System.out.print("$");
-            if (numberPrintedDollar == 3){
-                incrementOrDecriment *= -1;
+            if (numberPrintedSign == 3) {
+                step *= -1;
             } 
-                numberDollarSigns--;
-                if (numberDollarSigns == 0) {
-                    System.out.println();
-                    numberPrintedDollar += incrementOrDecriment;
-                    numberDollarSigns = numberPrintedDollar;
-                }
-        } while (numberPrintedDollar > 0);
+            numberSign--;
+            if (numberSign == 0) {
+                System.out.println();
+                numberPrintedSign += step;
+                numberSign = numberPrintedSign;
+            }
+        } while (numberPrintedSign > 0);
 
         System.out.println("\n7. Отображение ASCII-символов");
         for (int i = 0; i <= 'z'; i++) {
@@ -133,45 +133,45 @@ public class CyclesTheme {
         System.out.println("\n8. Проверка, является ли число палиндромом");
         num1 = 1234321;
         copyNum1 = num1;
-        int digit = 0;
+        int reverseNum = 0;
         while (num1 > 0) {
-            digit += num1 % 10;
+            reverseNum += num1 % 10;
             num1 /= 10;
             if (num1 != 0) {
-                digit *= 10;
+                reverseNum *= 10;
             }
         }
-        if (digit == copyNum1) {
+        if (reverseNum == copyNum1) {
             System.out.println("число " + copyNum1 + " является палиндромом");
         } else {
             System.out.println("число " + copyNum1 + " не является палиндромом");
         }
         
         System.out.println("\n9. Определение, является ли число счастливым");
-        String isHappy = "";
         num1 = 127321;
-        int endNum = num1 % 1000;
+        int bottomHalf = num1 % 1000;
         int copyNum = num1;
         while (num1 > 1000) {
             num1 /= 10;
         }
         copyNum1 = num1;
-        int copyEndNum = endNum;
-        int sumNum1 = 0;
-        int sumEndNum = 0;
-        while (num1 != 0 || endNum != 0) {
-            sumEndNum += endNum % 10;
-            endNum /= 10;
-            sumNum1 += num1 % 10;
+        int copyBottomHalf = bottomHalf;
+        int sumTopHalf = 0;
+        int sumBottomHalf = 0;
+        while (num1 != 0 || bottomHalf != 0) {
+            sumBottomHalf += bottomHalf % 10;
+            bottomHalf /= 10;
+            sumTopHalf += num1 % 10;
             num1 /= 10;
         }
-        if (sumNum1 == sumEndNum) {
-            isHappy = " является счастливым";
+        String happyOrNot = "";
+        if (sumTopHalf == sumBottomHalf) {
+            happyOrNot = " является счастливым";
         } else {
-            isHappy = " не является счастливым";
+            happyOrNot = " не является счастливым";
         }
-        System.out.println("Сумма цифр " + copyNum1 + " = " + sumNum1 + "\nСумма цифр " + 
-                copyEndNum + " = " + sumEndNum +"\nЧисло " + copyNum + isHappy);
+        System.out.println("Сумма цифр " + copyNum1 + " = " + sumTopHalf + "\nСумма цифр " + 
+                copyBottomHalf + " = " + sumBottomHalf +"\nЧисло " + copyNum + happyOrNot);
 
         System.out.println("\n10. Вывод таблицы умножения Пифагора");
         num1 = 10;
