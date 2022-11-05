@@ -16,7 +16,6 @@ public class GuessNumber {
     public void start() {
         Scanner scan = new Scanner(System.in);
         secretNum = new Random().nextInt(100) + 1;
-        System.out.println(secretNum);
         do {
             mixPlayers();
             System.out.print("Игрок " + activePlayer.getName() + " введите число: ");
