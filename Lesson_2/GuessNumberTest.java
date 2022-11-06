@@ -5,19 +5,19 @@ public class GuessNumberTest {
         System.out.print("Введите имя первого игрока: ");
         Scanner scan = new Scanner(System.in);
         String name = scan.nextLine();
-        Player firstPlayer = new Player(name);
+        Player player1 = new Player(name);
         System.out.print("Введите имя второго игрока: ");
         name = scan.nextLine();
-        Player secondPlayer = new Player(name);
-        GuessNumber game = new GuessNumber(firstPlayer, secondPlayer);
-        String continueGame = "";
+        Player player2 = new Player(name);
+        GuessNumber game = new GuessNumber(player1, player2);
+        String option;
         do {
             game.start();
-            System.out.print("Хотите продолжить игру? [yes/no]: ");
-            continueGame = scan.nextLine();
-            while (!continueGame.equals("yes") && !continueGame.equals("no")) {
-                continueGame = scan.nextLine();
+            option = "";
+            while (!option.equals("yes") && !option.equals("no")) {
+                System.out.print("Хотите продолжить игру? [yes/no]: ");
+                option = scan.nextLine();
             }
-        } while (!continueGame.equals("no"));
+        } while (!option.equals("no"));
     }
 } 

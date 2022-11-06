@@ -32,30 +32,24 @@ public class Calculator {
     public int calculate() {
         switch (sign) {
             case '+': 
-                result = num1 + num2; 
-                break;
+                return num1 + num2; 
             case '-': 
-                result = num1 - num2; 
-                break;
+                return num1 - num2; 
             case '*': 
-                result = num1 * num2; 
-                break;
+                return num1 * num2; 
             case '/': 
-                result = num1 / num2; 
-                break;
+                return num1 / num2; 
             case '%': 
-                result = num1 % num2; 
-                break;
+                return num1 % num2; 
             case '^': 
                 result = 1;
                 for (int i = 0; i < num2; i++) {
                     result *= num1;
                 }
-                break;
+                return result;
             default: 
                 System.out.println("Неизвестное действие");
+                return result;
         }
-        return result;
     }
-
-} 
+}

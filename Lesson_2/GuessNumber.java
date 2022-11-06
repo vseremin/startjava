@@ -2,26 +2,25 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class GuessNumber {
-    private Player firstPlayer;
-    private Player secondPlayer;
+    private Player player1;
+    private Player player2;
     private Player activePlayer;
     private int secretNum;
 
-    public GuessNumber(Player firstPlayer, Player secondPlayer) {
-        this.firstPlayer = firstPlayer;
-        this.secondPlayer = secondPlayer;
-        this.activePlayer = secondPlayer;
+    public GuessNumber(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+        this.activePlayer = player2;
     }
 
     public void start() {
         Scanner scan = new Scanner(System.in);
         secretNum = new Random().nextInt(100) + 1;
-        System.out.println(secretNum);
         do {
-            mixPlayers();
+            selectPlayer();
             System.out.print("Игрок " + activePlayer.getName() + " введите число: ");
-            int num = scan.nextInt();
-            activePlayer.setNum(num);
+            activePlayer.setNum(scan.nextInt());
+            scan.nextLine();
             if (activePlayer.getNum() > secretNum) {
                 System.out.println("Число " + activePlayer.getNum() 
                         + " больше того, что загадал компьютер");
@@ -33,8 +32,7 @@ public class GuessNumber {
         System.out.println("Победил игрок " + activePlayer.getName());
     }
 
-    private void mixPlayers() {
-        activePlayer = activePlayer == firstPlayer ? secondPlayer: firstPlayer;
+    private void selectPlayer() {
+        activePlayer = activePlayer == player1 ? player2: player1;
     }
-
 }

@@ -12,6 +12,7 @@ public class JaegerTest {
         chernoAlpha.setArmor(10);
         System.out.println(chernoAlpha);
         chernoAlpha.move();
+        
         Jaeger gipsyDanger = new Jaeger("Gipsy Danger", "Mark-3", "USA", 79.25f, 1.980f, 7, 8, 6);
         System.out.println(gipsyDanger);
         gipsyDanger.setWeight(-1);
