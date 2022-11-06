@@ -6,9 +6,8 @@ public class CalculatorTest {
         System.out.println("Калькулятор");
         Calculator calculator = new Calculator();
         String option = "";
-        Scanner scan;
-        do {
-            scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);;
+        do { 
             System.out.print("Введите первое число: ");
             calculator.setNum1(scan.nextInt());
             System.out.print("Введите знак математической операции: ");
