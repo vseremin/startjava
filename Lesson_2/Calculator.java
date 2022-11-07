@@ -2,7 +2,6 @@ public class Calculator {
     
     private int num1;
     private int num2;
-    private int result;
     private char sign;
 
     public int getNum1() {
@@ -42,14 +41,14 @@ public class Calculator {
             case '%': 
                 return num1 % num2; 
             case '^': 
-                result = 1;
+                int result = 1;
                 for (int i = 0; i < num2; i++) {
                     result *= num1;
                 }
                 return result;
             default: 
                 System.out.println("Неизвестное действие");
-                return result;
+                return 0;
         }
     }
 }

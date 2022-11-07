@@ -33,6 +33,6 @@ public class GuessNumber {
     }
 
     private void selectPlayer() {
-        activePlayer = activePlayer == player1 ? player2: player1;
+        activePlayer = activePlayer == player1 ? player2 : player1;
     }
 }
