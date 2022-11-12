@@ -9,51 +9,57 @@ public class ArrayTheme {
         int[] intArr1 = {7, 2, 5, 3, 1, 6, 4};
         printIntArr(intArr1);
         System.out.println();
-        for (int i = 0; i < intArr1.length / 2; i++) {
-            int numberCopy = intArr1[i];
-            intArr1[i] = intArr1[intArr1.length - 1 - i];
-            intArr1[intArr1.length - 1 - i] = numberCopy;
+        int len = intArr1.length - 1;
+        for (int i = 0; i < intArr1.length / 2; i++, len--) {
+            int tmp = intArr1[i];
+            intArr1[i] = intArr1[len];
+            intArr1[len] = tmp;
         }
         printIntArr(intArr1);
 
         System.out.println("\n\n2. Вывод произведения элементов массива");
         int[] intArr2 = new int[10];
-        for (int i = 0; i < intArr2.length; i++) {
+        len = intArr2.length;
+        for (int i = 0; i < len; i++) {
             intArr2[i] = i;
         }
         int product = 1;
-        for (int i = 0; i < intArr2.length; i++) {
-            product *= intArr2[i] != 0 && intArr2[i] != 9 ? takeValue(intArr2, i) : 1;
+        for (int i = 1; i < len - 1; i++) {
+            product *= intArr2[i];
+            String sign = intArr2[i + 1] == 9 ? " = " : " * ";
+            System.out.print(intArr2[i] + sign);
         }
         System.out.println(product);
 
         System.out.println("\n3. Удаление элементов массива");
         double[] doubleArr = new double[15];
-        for (int i = 0; i < doubleArr.length; i++) {
+        len = doubleArr.length;
+        for (int i = 0; i < len; i++) {
             doubleArr[i] = Math.random();
         }
-        int averageIndex = doubleArr.length / 2;
-        printDoubleArr(doubleArr, averageIndex);
-        int nullCell = 0;
-        for (int i = 0; i < doubleArr.length; i++) {
-            if (doubleArr[i] > doubleArr[averageIndex]) {
+        printDoubleArr(doubleArr);
+        double valueAverageIndex = doubleArr[len / 2];
+        int zeroCounter = 0;
+        for (int i = 0; i < len; i++) {
+            if (doubleArr[i] > valueAverageIndex) {
                 doubleArr[i] = 0;
-                nullCell++;
+                zeroCounter++;
             }
         }
         System.out.println();
-        printDoubleArr(doubleArr, averageIndex);
-        System.out.println("\nколичество обнуленных ячеек = " + nullCell);
+        printDoubleArr(doubleArr);
+        System.out.println("\nколичество обнуленных ячеек = " + zeroCounter);
 
         System.out.println("\n4. Вывод элементов массива лесенкой в обратном порядке");
         char[] charArr =  new char[26];
         char currentValue = 'A';
-        for (int i = 0; i < charArr.length; i++) {
+        len = charArr.length;
+        for (int i = 0; i < len; i++) {
             charArr[i] = currentValue;
             currentValue++;
         }
-        for (int i = charArr.length - 1; i >= 0; i--) {
-            int j = charArr.length - 1;
+        for (int i = len - 1; i >= 0; i--) {
+            int j = len - 1;
             while (i <= j) {
                 System.out.print(charArr[j]);
                 j--;
@@ -64,7 +70,8 @@ public class ArrayTheme {
         System.out.println("5. Генерация уникальных чисел");
         int[] intArr = new int[30];
         Random random = new Random();
-        for (int i = 0; i < intArr.length; i++) {
+        len = intArr.length;
+        for (int i = 0; i < len; i++) {
             int number = random.nextInt(40) + 60;
             boolean hasValue = false;
             for (int j = 0; j <= i; j++) {
@@ -80,7 +87,7 @@ public class ArrayTheme {
             }
         }
         int copyNum;
-        for (int i = intArr.length - 1; i > 0; i--) {
+        for (int i = len - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
                 if (intArr[j] > intArr[j + 1]) {
                     copyNum = intArr[j];
@@ -89,7 +96,7 @@ public class ArrayTheme {
                 }
             }
         }
-        for (int i = 0; i < intArr.length; i++) {
+        for (int i = 0; i < len; i++) {
             System.out.print(intArr[i] + " ");
             if ((i + 1) % 10 == 0) {
                 System.out.println();
@@ -98,17 +105,17 @@ public class ArrayTheme {
 
         System.out.println("\n*6. Сдвиг элементов массива");
         String[] stringArr = {"    ", "AA", "", "BBB", "CC", "D", "    ", "E", "FF", "G", ""};
-        int lengthArr = 0;
+        len = 0;
         for (String stringA : stringArr) {
-            if (!stringA.equals("") && !stringA.contains(" ")) {
-                lengthArr++;
+            if (!stringA.isBlank()) {
+                len++;
             }
         }
-        String[] stringArr2 = new String[lengthArr];
+        String[] stringArr2 = new String[len];
         int position = 0;
         for (int i = 0; i < stringArr.length; i++) {
             int j = i;
-            while (!stringArr[i].equals("") && !stringArr[i].contains(" ")) {
+            while (!stringArr[i].isBlank()) {
                 i++;
             }
             System.arraycopy(stringArr, j, stringArr2, position, i - j);
@@ -117,6 +124,7 @@ public class ArrayTheme {
         printStringArr(stringArr);
         printStringArr(stringArr2);
     }
+
     private static void printIntArr(int[] numbers) {
         for (int number : numbers
         ) {
@@ -124,25 +132,11 @@ public class ArrayTheme {
         }
     }
 
-    private static int takeValue(int[] numbers, int i) {
-        boolean sign = false;
-        for (int j = i + 1; j < numbers.length; j++) {
-            if (numbers[j] != 0 && numbers[j] != 9) {
-                sign = true;
-                break;
-            }
-        }
-        if (sign) {
-            System.out.print(numbers[i] + " * ");
-        } else {
-            System.out.print(numbers[i] + " = ");
-        }
-        return numbers[i];
-    }
-    private static void printDoubleArr(double[] arr, int index) {
+    private static void printDoubleArr(double[] arr) {
+        int averageIndex = arr.length / 2;
         for (int i = 0; i < arr.length; i++) {
             System.out.printf("%8.3f ", arr[i]);
-            if (i == index) {
+            if (i == averageIndex) {
                 System.out.println();
             }
         }
