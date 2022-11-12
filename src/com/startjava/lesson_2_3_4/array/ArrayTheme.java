@@ -54,7 +54,7 @@ public class ArrayTheme {
             alphabet[i] = (char) ('A' + i);
         }
         for (int i = len - 1; i >= 0; i--) {
-            for (int j = len - 1; i <= j; j--) {
+            for (int j = len - 1; j >= i; j--) {
                 System.out.print(alphabet[j]);
             }
             System.out.println();
