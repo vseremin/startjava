@@ -5,29 +5,30 @@ public class Calculator {
     private int num1;
     private int num2;
     private char sign;
+    private String expression;
 
     public int getNum1() {
         return num1;
-    }
-
-    public void setNum1(int num1) {
-        this.num1 = num1;
     }
 
     public int getNum2() {
         return num2;
     }
 
-    public void setNum2(int num2) {
-        this.num2 = num2;
-    }
-
     public char getSign() {
         return sign;
     }
 
-    public void setSign(char sign) {
-        this.sign = sign;
+    public void setExpression(String expression) {
+        this.expression = expression;
+        dividingLine();
+    }
+
+    private void dividingLine() {
+        String[] lines = expression.split(" ");
+        this.num1 = Integer.parseInt(lines[0]);
+        this.sign = lines[1].charAt(0);
+        this.num2 = Integer.parseInt(lines[2]);
     }
 
     public int calculate() {
@@ -43,11 +44,7 @@ public class Calculator {
             case '%': 
                 return num1 % num2; 
             case '^': 
-                int result = 1;
-                for (int i = 0; i < num2; i++) {
-                    result *= num1;
-                }
-                return result;
+                return (int) Math.pow(num1, num2);
             default: 
                 System.out.println("Неизвестное действие");
                 return 0;
