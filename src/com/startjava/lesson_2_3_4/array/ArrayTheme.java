@@ -25,9 +25,8 @@ public class ArrayTheme {
         int product = 1;
         for (int i = 1; i < len - 1; i++) {
             product *= intArr2[i];
-            System.out.print(intArr2[i + 1] == 9 ? intArr2[i] + " = " + product : intArr2[i] + " * ");
+            System.out.print(intArr2[i] + (intArr2[i + 1] != 9 ? " * " :  " = " + product));
         }
-
 
         System.out.println("\n\n3. Удаление элементов массива");
         double[] doubleArr = new double[15];
@@ -61,35 +60,35 @@ public class ArrayTheme {
         }
 
         System.out.println("\n5. Генерация уникальных чисел");
-        int[] uniqueNum = new int[30];
+        int[] uniqueNums = new int[30];
         Random random = new Random();
-        len = uniqueNum.length;
+        len = uniqueNums.length;
         for (int i = 0; i < len; i++) {
             int number = random.nextInt(40) + 60;
             boolean unique = false;
             for (int j = 0; j <= i; j++) {
-                if (uniqueNum[j] == number) {
+                if (uniqueNums[j] == number) {
                     unique = true;
                     break;
                 }
             }
             if (!unique) {
-                uniqueNum[i] = number;
+                uniqueNums[i] = number;
             } else {
                 i--;
             }
         }
         for (int i = len - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
-                if (uniqueNum[j] > uniqueNum[j + 1]) {
-                    int tmp = uniqueNum[j];
-                    uniqueNum[j] = uniqueNum[j + 1];
-                    uniqueNum[j + 1] = tmp;
+                if (uniqueNums[j] > uniqueNums[j + 1]) {
+                    int tmp = uniqueNums[j];
+                    uniqueNums[j] = uniqueNums[j + 1];
+                    uniqueNums[j + 1] = tmp;
                 }
             }
         }
         for (int i = 0; i < len; i++) {
-            System.out.print(uniqueNum[i] + " ");
+            System.out.print(uniqueNums[i] + " ");
             if ((i + 1) % 10 == 0) {
                 System.out.println();
             }
