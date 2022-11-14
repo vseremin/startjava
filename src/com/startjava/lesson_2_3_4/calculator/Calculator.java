@@ -31,8 +31,8 @@ public class Calculator {
 
     private void parseExpression() {
         String[] lines = expression.split(" ");
-        this.num1 = Integer.parseInt(lines[0]);
-        this.sign = lines[1].charAt(0);
-        this.num2 = Integer.parseInt(lines[2]);
+        num1 = Integer.parseInt(lines[0]);
+        sign = lines[1].charAt(0);
+        num2 = Integer.parseInt(lines[2]);
     }
 }
