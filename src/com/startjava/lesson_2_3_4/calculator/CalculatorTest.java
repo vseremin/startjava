@@ -11,14 +11,12 @@ public class CalculatorTest {
         Scanner scan = new Scanner(System.in);
         do {
             System.out.print("Введите математическое выражение: ");
-            calculator.setExpression(scan.nextLine());
-            System.out.println(calculator.getNum1() + " " + calculator.getSign() + " " +
-                    calculator.getNum2() + " = " + calculator.calculate());
+            String expression = scan.nextLine();
+            System.out.println(expression + " = " + calculator.calculate(expression));
             do {
                 System.out.print("Хотите продолжить вычисления? [yes/no]: ");
                 option = scan.nextLine();
             } while (!option.equals("yes") && !option.equals("no"));
-        }
-        while (!option.equals("no")); 
+        } while (!option.equals("no"));
     }
 } 

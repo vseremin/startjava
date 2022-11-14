@@ -7,31 +7,9 @@ public class Calculator {
     private char sign;
     private String expression;
 
-    public int getNum1() {
-        return num1;
-    }
-
-    public int getNum2() {
-        return num2;
-    }
-
-    public char getSign() {
-        return sign;
-    }
-
-    public void setExpression(String expression) {
+    public int calculate(String expression) {
         this.expression = expression;
-        dividingLine();
-    }
-
-    private void dividingLine() {
-        String[] lines = expression.split(" ");
-        this.num1 = Integer.parseInt(lines[0]);
-        this.sign = lines[1].charAt(0);
-        this.num2 = Integer.parseInt(lines[2]);
-    }
-
-    public int calculate() {
+        parseExpression();
         switch (sign) {
             case '+': 
                 return num1 + num2; 
@@ -49,5 +27,12 @@ public class Calculator {
                 System.out.println("Неизвестное действие");
                 return 0;
         }
+    }
+
+    private void parseExpression() {
+        String[] lines = expression.split(" ");
+        this.num1 = Integer.parseInt(lines[0]);
+        this.sign = lines[1].charAt(0);
+        this.num2 = Integer.parseInt(lines[2]);
     }
 }
