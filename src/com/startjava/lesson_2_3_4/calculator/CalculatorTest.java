@@ -6,13 +6,16 @@ public class CalculatorTest {
 
     public static void main(String[] args) {
         System.out.println("Калькулятор");
-        Calculator calculator = new Calculator();
         String option;
         Scanner scan = new Scanner(System.in);
         do {
             System.out.print("Введите математическое выражение: ");
             String expression = scan.nextLine();
-            System.out.println(expression + " = " + calculator.calculate(expression));
+            try {
+                System.out.println(expression + " = " + Calculator.calculate(expression));
+            } catch (UnsupportedOperationException exeption) {
+                System.out.println("Введены некорректные данные! Введите правильное выражение");
+            }
             do {
                 System.out.print("Хотите продолжить вычисления? [yes/no]: ");
                 option = scan.nextLine();
