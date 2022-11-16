@@ -13,8 +13,11 @@ public class CalculatorTest {
             String expression = scan.nextLine();
             try {
                 System.out.println(expression + " = " + Calculator.calculate(expression));
-            } catch (UnsupportedOperationException exeption) {
-                System.out.println("Введены некорректные данные! Введите правильное выражение");
+            } catch (ArrayIndexOutOfBoundsException exeptionArray) {
+                System.out.println("Введите правильное выражение. Пример формата ввода: 2 ^ 10");
+            } catch (IllegalArgumentException exceptionNumber) {
+                System.out.println("Проверьте правильность ввода выражения. Калькулятор работает с " +
+                        "целыми положительными числами");
             }
             do {
                 System.out.print("Хотите продолжить вычисления? [yes/no]: ");

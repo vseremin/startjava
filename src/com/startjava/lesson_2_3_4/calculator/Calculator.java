@@ -15,28 +15,30 @@ public class Calculator {
             case '/' -> num1 / num2;
             case '%' -> num1 % num2;
             case '^' -> (int) Math.pow(num1, num2);
-            default -> throw new UnsupportedOperationException("Неверные данные");
+            default -> throw new IllegalArgumentException("sign может принимать только следующие значения: " +
+                    "'+', '-', '*', '/', '%', '^'");
         };
     }
 
     private static void parseExpression(String expression) {
         String[] partsExpression = expression.split(" ");
-        if (isPositiveNumber(partsExpression[0]) && isPositiveNumber(partsExpression[2])) {
-            num1 = Integer.parseInt(partsExpression[0]);
-            sign = partsExpression[1].charAt(0);
-            num2 = Integer.parseInt(partsExpression[2]);
-        } else {
-            throw new UnsupportedOperationException("Неверные данные");
+        if (partsExpression.length != 3) {
+            throw new ArrayIndexOutOfBoundsException("Проверьте правильность формата введенного выражения." +
+                    "Числа и знак должны быть разделены пробелом");
         }
+            num1 = parsePositiveNumber(partsExpression[0]);
+            sign = partsExpression[1].charAt(0);
+            num2 = parsePositiveNumber(partsExpression[2]);
+
     }
 
-    private static boolean isPositiveNumber(String str) {
+    private static int parsePositiveNumber(String str) {
         try {
             int intNum = Integer.parseInt(str);
             if (intNum >= 0) {
-                return true;
+                return intNum;
             }
-        } catch (NumberFormatException ignored) { }
-        return false;
+        } catch (NumberFormatException ignored) {   }
+        throw new IllegalArgumentException("num1 и num2 должны быть целыми положительными числами");
     }
 }
