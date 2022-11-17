@@ -41,9 +41,6 @@ public class Calculator {
         } catch (NumberFormatException ignored) {
             throw new IllegalArgumentException("num1 и num2 должны быть целыми числами");
         }
-        if (num >= 0) {
-            return num;
-        }
-        return -1;
+        return num;
     }
 }
