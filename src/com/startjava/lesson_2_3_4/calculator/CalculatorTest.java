@@ -13,11 +13,9 @@ public class CalculatorTest {
             String expression = scan.nextLine();
             try {
                 System.out.println(expression + " = " + Calculator.calculate(expression));
-            } catch (ArrayIndexOutOfBoundsException exeptionArray) {
-                System.out.println("Введите правильное выражение. Пример формата ввода: 2 ^ 10");
-            } catch (IllegalArgumentException exceptionNumber) {
-                System.out.println("Проверьте правильность ввода выражения. Калькулятор работает с " +
-                        "целыми положительными числами");
+            } catch (IllegalArgumentException exception) {
+                System.out.println("Проверьте правильность ввода выражения. Пример формата ввода: 2 ^ 10." +
+                        " Калькулятор работает только с целыми положительными числами");
             }
             do {
                 System.out.print("Хотите продолжить вычисления? [yes/no]: ");

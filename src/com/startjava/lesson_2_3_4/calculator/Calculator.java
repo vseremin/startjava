@@ -23,22 +23,27 @@ public class Calculator {
     private static void parseExpression(String expression) {
         String[] partsExpression = expression.split(" ");
         if (partsExpression.length != 3) {
-            throw new ArrayIndexOutOfBoundsException("Проверьте правильность формата введенного выражения." +
+            throw new IllegalArgumentException("Проверьте правильность формата введенного выражения." +
                     "Числа и знак должны быть разделены пробелом");
         }
-            num1 = parsePositiveNumber(partsExpression[0]);
-            sign = partsExpression[1].charAt(0);
-            num2 = parsePositiveNumber(partsExpression[2]);
-
+        num1 = validPositiveNumber(partsExpression[0]);
+        sign = partsExpression[1].charAt(0);
+        num2 = validPositiveNumber(partsExpression[2]);
+        if (num1 < 0 || num2 < 0) {
+            throw new IllegalArgumentException("num1 и num2 должны быть положительными числами");
+        }
     }
 
-    private static int parsePositiveNumber(String str) {
+    private static int validPositiveNumber(String str) {
+        int num;
         try {
-            int intNum = Integer.parseInt(str);
-            if (intNum >= 0) {
-                return intNum;
-            }
-        } catch (NumberFormatException ignored) {   }
-        throw new IllegalArgumentException("num1 и num2 должны быть целыми положительными числами");
+            num = Integer.parseInt(str);
+        } catch (NumberFormatException ignored) {
+            throw new IllegalArgumentException("num1 и num2 должны быть целыми числами");
+        }
+        if (num >= 0) {
+            return num;
+        }
+        return -1;
     }
 }
