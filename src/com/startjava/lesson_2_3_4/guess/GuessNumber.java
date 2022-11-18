@@ -59,8 +59,7 @@ public class GuessNumber {
     }
 
     private void printNumbers(Player player) {
-        System.out.print("Числа названные игроком " + player.getName()
-                + ": ");
+        System.out.print("Числа названные игроком " + player.getName() + ": ");
         for (int num : player.returnNumbersArray()) {
             System.out.print(num + ", ");
         }
