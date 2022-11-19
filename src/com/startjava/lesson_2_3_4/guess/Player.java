@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class Player {
 
     private String name;
-    private int startRange = 0;
     private int numberTries = 0;
     private int[] nums = new int[10];
     private boolean active = true;
@@ -19,7 +18,7 @@ public class Player {
     }
 
     public int getNum() {
-        return nums[numberTries + startRange - 1];
+        return nums[numberTries - 1];
     }
 
     public int getNumberTries() {
@@ -35,22 +34,17 @@ public class Player {
             System.out.println("У " + name + " закончились попытки");
             active = false;
         } else {
-            nums[numberTries + startRange] = num;
+            nums[numberTries] = num;
             numberTries++;
         }
     }
 
     public void continueGame() {
-        startRange += numberTries;
         numberTries = 0;
-        if(nums.length < startRange + 10) {
-            nums = Arrays.copyOf(nums, startRange + 10);
-        }
+        Arrays.fill(nums, 0);
     }
 
     public int[] returnNumbersArray() {
-        int[] itogNumbers = Arrays.copyOfRange(nums, startRange, numberTries + startRange);
-        continueGame();
-        return itogNumbers;
+        return Arrays.copyOf(nums, numberTries);
     }
 }

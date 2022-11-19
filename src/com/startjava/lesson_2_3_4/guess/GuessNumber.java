@@ -1,4 +1,5 @@
 package com.startjava.lesson_2_3_4.guess;
+
 import java.util.Scanner;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ public class GuessNumber {
     public void start() {
         Scanner scan = new Scanner(System.in);
         secretNum = new Random().nextInt(100) + 1;
+        clearPreviousResults();
         do {
             selectPlayer();
             System.out.print("Игрок " + activePlayer.getName() + " введите число: ");
@@ -25,6 +27,11 @@ public class GuessNumber {
             printMoreOfLess();
         } while (isGaming());
         printWinner();
+    }
+
+    private void clearPreviousResults() {
+        player1.continueGame();
+        player2.continueGame();
     }
 
     private void selectPlayer() {
