@@ -30,7 +30,7 @@ public class Player {
     }
 
     public void setNumArray(int num) {
-        if (numberTries == 9) {
+        if (numberTries == 10) {
             System.out.println("У " + name + " закончились попытки");
             active = false;
         } else {
@@ -40,6 +40,7 @@ public class Player {
     }
 
     public void continueGame() {
+        active = true;
         numberTries = 0;
         Arrays.fill(nums, 0);
     }
