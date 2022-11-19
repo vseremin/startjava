@@ -1,9 +1,12 @@
 package com.startjava.lesson_2_3_4.guess;
+
 import java.util.Scanner;
 
 public class GuessNumberTest {
     public static void main(String[] args) {
-        System.out.print("\"Угадай число\"\nУ каждого игрока по 10 попыток\nВведите имя первого игрока: ");
+        System.out.print("\"Угадай число\""
+                + "\nУ каждого игрока по 10 попыток"
+                + "\nВведите имя первого игрока: ");
         Scanner scan = new Scanner(System.in);
         String name = scan.nextLine();
         Player player1 = new Player(name);

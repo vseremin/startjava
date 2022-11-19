@@ -5,9 +5,8 @@ import java.util.Arrays;
 public class Player {
 
     private String name;
-    private int numberTries = 0;
+    private int numberTries;
     private int[] nums = new int[10];
-    private boolean active = true;
 
     public Player(String name) {
         this.name = name;
@@ -25,27 +24,23 @@ public class Player {
         return numberTries;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setNumArray(int num) {
+    public boolean addNums(int num) {
         if (numberTries == 10) {
             System.out.println("У " + name + " закончились попытки");
-            active = false;
+            return false;
         } else {
             nums[numberTries] = num;
             numberTries++;
+            return true;
         }
     }
 
-    public void continueGame() {
-        active = true;
+    public void clearTries() {
+        Arrays.fill(nums, 0, numberTries, 0);
         numberTries = 0;
-        Arrays.fill(nums, 0);
     }
 
-    public int[] returnNumbersArray() {
+    public int[] getNums() {
         return Arrays.copyOf(nums, numberTries);
     }
 }
