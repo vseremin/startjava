@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Player {
 
     private String name;
-    private int numberTries;
+    private int numTries;
     private int[] nums = new int[10];
 
     public Player(String name) {
@@ -17,30 +17,29 @@ public class Player {
     }
 
     public int getNum() {
-        return nums[numberTries - 1];
+        return nums[numTries - 1];
     }
 
-    public int getNumberTries() {
-        return numberTries;
+    public int getNumTries() {
+        return numTries;
     }
 
     public boolean addNums(int num) {
-        if (numberTries == 10) {
+        if (numTries == 10) {
             System.out.println("У " + name + " закончились попытки");
             return false;
-        } else {
-            nums[numberTries] = num;
-            numberTries++;
-            return true;
         }
+        nums[numTries] = num;
+        numTries++;
+        return true;
     }
 
     public void clearTries() {
-        Arrays.fill(nums, 0, numberTries, 0);
-        numberTries = 0;
+        Arrays.fill(nums, 0, numTries, 0);
+        numTries = 0;
     }
 
     public int[] getNums() {
-        return Arrays.copyOf(nums, numberTries);
+        return Arrays.copyOf(nums, numTries);
     }
 }
