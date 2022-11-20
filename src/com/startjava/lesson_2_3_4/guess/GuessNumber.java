@@ -58,26 +58,32 @@ public class GuessNumber {
     }
 
     private void printWinner() {
-        if (numGame < 2) {
-            if (activePlayer.getNumTries() < 10) {
-                System.out.println("Победил игрок " + activePlayer.getName()
-                        + " угадал число " + activePlayer.getNum() + " с "
-                        + activePlayer.getNumTries() + " попытки");
-                activePlayer.setNumWins(activePlayer.getNumWins() + 1);
-            } else {
-                System.out.println("Попытки закончились, победителя нет");
-            }
-            for (Player player : playerArr) {
-                printNum(player);
-            }
-            numGame++;
+        if (activePlayer.getNumTries() < 10) {
+            System.out.println("В этом раунде победил игрок " + activePlayer.getName()
+                    + " угадал число " + activePlayer.getNum() + " с "
+                    + activePlayer.getNumTries() + " попытки");
+            activePlayer.setNumWins(activePlayer.getNumWins() + 1);
         } else {
-            activePlayer = playerArr[0].getNumWins() > playerArr[1].getNumWins() ? playerArr[0] : playerArr[1];
-            activePlayer = activePlayer.getNumWins() > playerArr[2].getNumWins() ? activePlayer : playerArr[2];
-            System.out.println("По итогам 3 раундов победил: " + activePlayer.getName());
-            numGame = 0;
+            System.out.println("Попытки закончились, в этом раунде победителя нет");
         }
-
+        for (Player player : playerArr) {
+            printNum(player);
+        }
+        numGame++;
+        if (numGame >= 3) {
+            if (playerArr[0].getNumWins() == playerArr[1].getNumWins() ||
+                    playerArr[1].getNumWins() == playerArr[2].getNumWins() ||
+                    playerArr[0].getNumWins() == playerArr[2].getNumWins()) {
+                System.out.println("По итогам 3 раундов победителя нет");
+                numGame = 0;
+            } else {
+                activePlayer = playerArr[0].getNumWins() > playerArr[1].getNumWins() ?
+                        playerArr[0].getNumWins() > playerArr[2].getNumWins() ? playerArr[0] : playerArr[2] :
+                        playerArr[1].getNumWins() > playerArr[2].getNumWins() ? playerArr[1] : playerArr[2];
+                System.out.println("По итогам 3 раундов победил: " + activePlayer.getName());
+                numGame = 0;
+            }
+        }
     }
 
     private void printNum(Player player) {
