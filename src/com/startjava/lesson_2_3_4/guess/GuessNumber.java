@@ -4,22 +4,13 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class GuessNumber {
-    private Player[] playerArr = new Player[3];
+    private final Player[] playerArr = new Player[3];
     private Player activePlayer;
     private int secretNum;
     private int numGame;
 
-    public GuessNumber(Player ... player) {
-        Random rnd = new Random();
-        int length = player.length;
-        int numArr = 0;
-        while (length > 0) {
-            int num = rnd.nextInt(length);
-            playerArr[numArr] = player[num];
-            player[num] = player[length - 1];
-            length--;
-            numArr++;
-        }
+    public GuessNumber(Player... player) {
+        castLots(player);
     }
 
     public void start() {
@@ -30,11 +21,29 @@ public class GuessNumber {
             do {
                 selectPlayer();
                 System.out.print("Игрок " + activePlayer.getName() + " введите число: ");
-                if (!activePlayer.addNums(scan.nextInt())) {
-                    break;
+                if (!activePlayer.addNum(scan.nextInt())) {
+                    if (activePlayer.getNumTries() == 10) {
+                        break;
+                    } else {
+                        do {
+                            System.out.print("Игрок " + activePlayer.getName() + " введите число: ");
+                            activePlayer.setNumTries(activePlayer.getNumTries() - 1);
+                        } while (activePlayer.addNum(scan.nextInt()));
+                    }
                 }
             } while (!compareNums());
             printWinner();
+        }
+    }
+
+    private void castLots(Player... player) {
+        Random rnd = new Random();
+        int numArr = 0;
+        for (int length = player.length; length > 0; length--) {
+            int num = rnd.nextInt(length);
+            playerArr[numArr] = player[num];
+            player[num] = player[length - 1];
+            numArr++;
         }
     }
 
@@ -45,8 +54,16 @@ public class GuessNumber {
     }
 
     private void selectPlayer() {
-        activePlayer = activePlayer == playerArr[0] ? playerArr[1] :
-                activePlayer == playerArr[1] ? playerArr[2] : playerArr[0];
+        if (activePlayer == null) {
+            activePlayer = playerArr[0];
+        } else {
+            for (int i = 0; i < playerArr.length; i++) {
+                if (activePlayer == playerArr[i]) {
+                    activePlayer = i == playerArr.length - 1 ? playerArr[0] : playerArr[i + 1];
+                    return;
+                }
+            }
+        }
     }
 
     private boolean compareNums() {
@@ -71,18 +88,24 @@ public class GuessNumber {
         }
         numGame++;
         if (numGame >= 3) {
-            if (playerArr[0].getNumWins() == playerArr[1].getNumWins() ||
-                    playerArr[1].getNumWins() == playerArr[2].getNumWins() ||
-                    playerArr[0].getNumWins() == playerArr[2].getNumWins()) {
-                System.out.println("По итогам 3 раундов победителя нет");
-                numGame = 0;
-            } else {
-                activePlayer = playerArr[0].getNumWins() > playerArr[1].getNumWins() ?
-                        playerArr[0].getNumWins() > playerArr[2].getNumWins() ? playerArr[0] : playerArr[2] :
-                        playerArr[1].getNumWins() > playerArr[2].getNumWins() ? playerArr[1] : playerArr[2];
-                System.out.println("По итогам 3 раундов победил: " + activePlayer.getName());
-                numGame = 0;
+            activePlayer = null;
+            int maxNumWins = 0;
+            int numPlayerWins = 0;
+            for (Player player : playerArr) {
+                if (maxNumWins < player.getNumWins()) {
+                    maxNumWins = player.getNumWins();
+                    activePlayer = player;
+                    numPlayerWins = 1;
+                } else if (maxNumWins == player.getNumWins()) {
+                    numPlayerWins++;
+                }
             }
+            if (activePlayer != null && numPlayerWins == 1) {
+                System.out.println("По итогам 3 раундов победил: " + activePlayer.getName());
+            } else {
+                System.out.println("По итогам 3 раундов победителя нет");
+            }
+            numGame = 0;
         }
     }
 

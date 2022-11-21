@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class Player {
 
-    private String name;
+    private final String name;
     private int numTries;
-    private int[] nums = new int[10];
+    private final int[] nums = new int[10];
     private int numWins;
 
     public Player(String name) {
@@ -18,23 +18,7 @@ public class Player {
         return name;
     }
 
-    public int getNum() {
-        return nums[numTries - 1];
-    }
-
-    public int getNumTries() {
-        return numTries;
-    }
-
-    public int getNumWins() {
-        return numWins;
-    }
-
-    public void setNumWins(int numWins) {
-        this.numWins = numWins;
-    }
-
-    public boolean addNums(int num) {
+    public boolean addNum(int num) {
         if (numTries == 10) {
             System.out.println("У " + name + " закончились попытки");
             return false;
@@ -48,6 +32,26 @@ public class Player {
         nums[numTries] = num;
         numTries++;
         return true;
+    }
+
+    public int getNumTries() {
+        return numTries;
+    }
+
+    public void setNumTries(int numTries) {
+        this.numTries = numTries;
+    }
+
+    public int getNum() {
+        return nums[numTries - 1];
+    }
+
+    public int getNumWins() {
+        return numWins;
+    }
+
+    public void setNumWins(int numWins) {
+        this.numWins = numWins;
     }
 
     public void clearTries() {

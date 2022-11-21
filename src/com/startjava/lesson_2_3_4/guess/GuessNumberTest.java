@@ -4,9 +4,10 @@ import java.util.Scanner;
 
 public class GuessNumberTest {
     public static void main(String[] args) {
-        System.out.print("\"Угадай число\""
-                + "\nУ каждого игрока по 10 попыток"
-                + "\nВведите имя первого игрока: ");
+        System.out.print("""
+                "Угадай число"
+                У каждого игрока по 10 попыток
+                Введите имя первого игрока:\s""");
 
         Scanner scan = new Scanner(System.in);
         String name = scan.nextLine();
