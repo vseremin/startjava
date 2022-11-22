@@ -1,7 +1,6 @@
 package com.startjava.lesson_2_3_4.guess;
 
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Player {
 
@@ -23,11 +22,8 @@ public class Player {
             System.out.println("У " + name + " закончились попытки");
             return false;
         }
-        while (num <= 0 || num > 100) {
-            System.out.print("Значение должно быть в в полуинтервал (0, 100]. "
-                    + "Введите другое число: ");
-            Scanner scan = new Scanner(System.in);
-            num = scan.nextInt();
+        if (num <= 0 || num > 100) {
+            return false;
         }
         nums[numTries] = num;
         numTries++;
@@ -42,6 +38,11 @@ public class Player {
         this.numTries = numTries;
     }
 
+    public void clearTries() {
+        Arrays.fill(nums, 0, numTries, 0);
+        numTries = 0;
+    }
+
     public int getNum() {
         return nums[numTries - 1];
     }
@@ -52,11 +53,6 @@ public class Player {
 
     public void setNumWins(int numWins) {
         this.numWins = numWins;
-    }
-
-    public void clearTries() {
-        Arrays.fill(nums, 0, numTries, 0);
-        numTries = 0;
     }
 
     public int[] getNums() {

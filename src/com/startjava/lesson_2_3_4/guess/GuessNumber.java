@@ -4,9 +4,9 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class GuessNumber {
-    private final Player[] playerArr = new Player[3];
-    private Player activePlayer;
     private int secretNum;
+    private Player activePlayer;
+    private final Player[] playerArr = new Player[3];
     private int numGame;
 
     public GuessNumber(Player... player) {
@@ -26,9 +26,10 @@ public class GuessNumber {
                         break;
                     } else {
                         do {
-                            System.out.print("Игрок " + activePlayer.getName() + " введите число: ");
-                            activePlayer.setNumTries(activePlayer.getNumTries() - 1);
-                        } while (activePlayer.addNum(scan.nextInt()));
+                            System.out.print("Игрок " + activePlayer.getName() + " введите число. " +
+                                    "Значение должно быть в полуинтервале (0, 100] : ");
+                            activePlayer.setNumTries(activePlayer.getNumTries());
+                        } while (!activePlayer.addNum(scan.nextInt()));
                     }
                 }
             } while (!compareNums());
@@ -68,9 +69,9 @@ public class GuessNumber {
 
     private boolean compareNums() {
         int num = activePlayer.getNum();
-        System.out.println("Число " + num
+        System.out.println(secretNum != num ? "Число " + num
                 + (num > secretNum ? " больше " : " меньше ")
-                + "того, что загадал компьютер");
+                + "того, что загадал компьютер" : "Число отгадано");
         return secretNum == num;
     }
 
