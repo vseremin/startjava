@@ -1,5 +1,6 @@
 package com.startjava.lesson_2_3_4.guess;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -17,14 +18,13 @@ public class GuessNumber {
     }
 
     public void start() {
-        Scanner scan = new Scanner(System.in);
         for (int i = 0; i < NUM_ROUND; i++) {
             secretNum = new Random().nextInt(100) + 1;
             init();
             do {
                 selectPlayer();
                 System.out.print("Игрок " + activePlayer.getName() + " введите число: ");
-                if (!activePlayer.addNum(scan.nextInt())) {
+                if (!activePlayer.addNum(inputNum())) {
                     if (activePlayer.getNumTries() == Player.NUM_ATTEMPTS) {
                         break;
                     }
@@ -32,8 +32,7 @@ public class GuessNumber {
                         System.out.print("Игрок " + activePlayer.getName() + " введите число. " +
                                 "Значение должно быть в полуинтервале (0, 100] : ");
                         activePlayer.setNumTries(activePlayer.getNumTries());
-                    } while (!activePlayer.addNum(scan.nextInt()));
-                    scan.nextLine();
+                    } while (!activePlayer.addNum(inputNum()));
                 }
             } while (!compareNums());
             printWinner();
@@ -60,6 +59,17 @@ public class GuessNumber {
     private void selectPlayer() {
         activePlayer = players[numActivePlayer];
         numActivePlayer = numActivePlayer == players.length - 1 ? 0 : numActivePlayer + 1;
+    }
+
+    private int inputNum() {
+        Scanner scan = new Scanner(System.in);
+        try {
+            int num = scan.nextInt();
+            return num;
+        } catch (InputMismatchException exception) {
+            System.out.println("Вы ввели не число");
+        }
+        return 101;
     }
 
     private boolean compareNums() {
