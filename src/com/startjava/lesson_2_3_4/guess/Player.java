@@ -6,7 +6,8 @@ public class Player {
 
     private final String name;
     private int numTries;
-    private final int[] nums = new int[10];
+    public static final int NUM_ATTEMPTS = 10;
+    private final int[] nums = new int[NUM_ATTEMPTS];
     private int numWins;
 
     public Player(String name) {
@@ -18,7 +19,7 @@ public class Player {
     }
 
     public boolean addNum(int num) {
-        if (numTries == 10) {
+        if (numTries == NUM_ATTEMPTS) {
             System.out.println("У " + name + " закончились попытки");
             return false;
         }
