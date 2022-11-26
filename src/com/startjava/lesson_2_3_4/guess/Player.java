@@ -6,8 +6,7 @@ public class Player {
 
     private final String name;
     private int numTries;
-    public static final int NUM_ATTEMPTS = 10;
-    private final int[] nums = new int[NUM_ATTEMPTS];
+    private final int[] nums = new int[GuessNumber.NUM_ATTEMPTS];
     private int numWins;
 
     public Player(String name) {
@@ -19,7 +18,7 @@ public class Player {
     }
 
     public boolean addNum(int num) {
-        if (numTries == NUM_ATTEMPTS) {
+        if (numTries == GuessNumber.NUM_ATTEMPTS) {
             System.out.println("У " + name + " закончились попытки");
             return false;
         }
