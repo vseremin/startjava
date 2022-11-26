@@ -76,7 +76,7 @@ public class GuessNumber {
             return true;
         }
         System.out.println("Число " + num + (num > secretNum ? " больше " : " меньше ")
-                + " того, что загадал компьютер");
+                + "того, что загадал компьютер");
         return false;
     }
 
