@@ -10,7 +10,6 @@ public class GuessNumber {
     private Player activePlayer;
     public static final int NUM_ATTEMPTS = 10;
     private final Player[] players = new Player[3];
-    private int numActivePlayer;
     private int round = 1;
 
     public GuessNumber(Player... player) {
@@ -18,21 +17,21 @@ public class GuessNumber {
     }
 
     public void start() {
+        int numActivePlayer = players.length;
         for (int i = 0; i < NUM_ROUND; i++) {
             secretNum = new Random().nextInt(100) + 1;
             init();
             do {
-                selectPlayer();
+                numActivePlayer = selectPlayer(numActivePlayer);
+                activePlayer = players[numActivePlayer];
                 System.out.print("Игрок " + activePlayer.getName() + " введите число: ");
-                if (!activePlayer.addNum(inputNum())) {
+                while (!activePlayer.addNum(inputNum())) {
                     if (activePlayer.getNumTries() == NUM_ATTEMPTS) {
                         break;
                     }
-                    do {
-                        System.out.print("Игрок " + activePlayer.getName() + " введите число. " +
-                                "Значение должно быть в полуинтервале (0, 100] : ");
-                        activePlayer.setNumTries(activePlayer.getNumTries());
-                    } while (!activePlayer.addNum(inputNum()));
+                    System.out.print("Игрок " + activePlayer.getName() + " введите число. " +
+                            "Значение должно быть в полуинтервале (0, 100] : ");
+                    activePlayer.setNumTries(activePlayer.getNumTries());
                 }
             } while (!compareNums());
             printWinner();
@@ -56,16 +55,15 @@ public class GuessNumber {
         }
     }
 
-    private void selectPlayer() {
-        activePlayer = players[numActivePlayer];
-        numActivePlayer = numActivePlayer == players.length - 1 ? 0 : numActivePlayer + 1;
+    private int selectPlayer(int numActivePlayer) {
+        numActivePlayer = numActivePlayer >= players.length - 1 ? 0 : numActivePlayer + 1;
+        return numActivePlayer;
     }
 
     private int inputNum() {
         Scanner scan = new Scanner(System.in);
         try {
-            int num = scan.nextInt();
-            return num;
+            return scan.nextInt();
         } catch (InputMismatchException exception) {
             System.out.println("Вы ввели не число");
         }
