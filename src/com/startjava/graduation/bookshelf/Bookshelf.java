@@ -1,24 +1,35 @@
 package com.startjava.graduation.bookshelf;
 
 import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Bookshelf {
 
+    public static final int SIZE_SHELF = 10;
     private static int numberBook;
-    private static Book[] books = new Book[10];
+    private static Book[] books = new Book[SIZE_SHELF];
     private int maxLength;
 
     public int getNumberBook() {
         return numberBook;
     }
 
-    public void delete() {
-        int number = searchBook();
+    public int getMaxLength() {
+        return maxLength;
+    }
+
+    public void delete(String title) {
+        int number;
+        try {
+            number = searchBook(title);
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException("Не могу удалить данную книгу, так как в шкафу ее нет");
+        }
+        int length = books[number].getLenInfo();
         System.arraycopy(books, number + 1, books, number, numberBook - number - 1);
         numberBook--;
-        setMaxLength();
+        if (length == maxLength) {
+            setMaxLength();
+        }
     }
 
     public void clearSelf() {
@@ -26,38 +37,20 @@ public class Bookshelf {
         numberBook = 0;
     }
 
-    public void addBook() {
+    public void addBook(String autor, String title, String year) {
         if (books.length  == numberBook) {
-            System.out.println("шкаф переполнен");
-        } else {
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Введите автора книги: ");
-            String autor = scanner.nextLine();
-            System.out.print("Введите название книги: ");
-            String title = scanner.nextLine();
-            System.out.print("Введите год издания книги: ");
-            int year;
-            try {
-                 year = scanner.nextInt();
-                scanner.nextLine();
-            } catch (InputMismatchException exception) {
-                throw new InputMismatchException("Год нужно выводит числом!");
-            }
-            Book book = new Book(autor, title, year);
-            books[numberBook] = book;
-            numberBook++;
+            throw new IllegalArgumentException("Шкаф переполнен, не могу добавлять новые книги");
         }
-        setMaxLength();
+        Book book = new Book(autor, title, year);
+        books[numberBook] = book;
+        numberBook++;
+        if (books[numberBook - 1].getLenInfo() > maxLength) {
+            setMaxLength();
+        }
     }
 
-    public void getAllBook() {
-        for (int i = 0; i < numberBook; i++) {
-            printBook(i);
-        }
-        if (books.length  != numberBook) {
-            String shelf = "|" + " ".repeat(maxLength) + "|";
-            System.out.println(shelf);
-        }
+    public Book[] getAllBook() {
+        return Arrays.copyOf(books, numberBook);
     }
 
     public int getNumberBookOnTheShelf() {
@@ -68,9 +61,7 @@ public class Bookshelf {
         return books.length - numberBook;
     }
 
-    public int searchBook() {
-        System.out.print("Введите название книги: ");
-        String bookTitle = new Scanner(System.in).nextLine();
+    public int searchBook(String bookTitle) {
         for (int i = 0; i < numberBook; i++) {
             if (bookTitle.equals(books[i].getTitle())) {
                 return i;
@@ -82,19 +73,7 @@ public class Bookshelf {
     private void setMaxLength() {
         maxLength = 0;
         for (int i = 0; i < numberBook; i++) {
-            maxLength = books[i].getLengthBookInformation() > maxLength ? books[i].getLengthBookInformation() :
-                    maxLength;
-        }
-    }
-
-    private void printBook(int number) {
-        if (number > numberBook || numberBook == 0) {
-            System.out.println("Книги с таким индексом нет");
-        } else {
-            String book = "|" + books[number].toString()
-                    + " ".repeat(maxLength - books[number].getLengthBookInformation())
-                    + "|\n|" + "-".repeat(maxLength) + "|";
-            System.out.println(book);
+            maxLength = books[i].getLenInfo() > maxLength ? books[i].getLenInfo() : maxLength;
         }
     }
 }
