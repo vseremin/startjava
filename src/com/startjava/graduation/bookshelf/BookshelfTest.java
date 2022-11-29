@@ -16,7 +16,7 @@ public class BookshelfTest {
                 do {
                     System.out.print("Для продолжения работы нажмите Enter");
                 } while (scanner.nextLine().toCharArray().length != 0);
-                System.out.println("Количество книг: " + bookshelf.getNumberBook() + ", количество свободных полок: "
+                System.out.println("Количество книг: " + bookshelf.getNumberBooks() + ", количество свободных полок: "
                         + bookshelf.getAmountFreeSpace() +"\n");
                 printShelf(bookshelf.getAllBook(), bookshelf.getMaxLength());
             }
@@ -52,21 +52,22 @@ public class BookshelfTest {
                     System.out.print("Введите год издания книги: ");
                     String year = scanner.nextLine();
                     try {
-                        bookshelf.addBook(autor, title, year);
+                        bookshelf.addBook(new Book (autor, title, year));
                     } catch (RuntimeException exception) {
                         System.out.println(exception.getMessage());
                     }
                 }
                 case 4 -> printShelf(bookshelf.getAllBook(), bookshelf.getMaxLength());
-                case 5 -> System.out.println("Количество книг на полке: " + bookshelf.getNumberBookOnTheShelf());
+                case 5 -> System.out.println("Количество книг на полке: " + bookshelf.getNumberBooks());
                 case 6 -> System.out.println("Количество свободных полок: " + bookshelf.getAmountFreeSpace());
                 case 7 -> {
                     System.out.print("Введите название книги: ");
                     String title = scanner.nextLine();
-                    try {
+                    int numberShelf = bookshelf.searchBook(title);
+                    if (numberShelf == -1) {
+                        System.out.println("Книги нет!");
+                    } else {
                         System.out.println("Номер полки: " + bookshelf.searchBook(title));
-                    } catch (IllegalArgumentException exception) {
-                        System.out.println(exception.getMessage());
                     }
                 }
                 default -> {

@@ -5,12 +5,12 @@ import java.util.Arrays;
 public class Bookshelf {
 
     public static final int SIZE_SHELF = 10;
-    private static int numberBook;
-    private static Book[] books = new Book[SIZE_SHELF];
+    private int numberBooks;
+    private Book[] books = new Book[SIZE_SHELF];
     private int maxLength;
 
-    public int getNumberBook() {
-        return numberBook;
+    public int getNumberBooks() {
+        return numberBooks;
     }
 
     public int getMaxLength() {
@@ -18,62 +18,57 @@ public class Bookshelf {
     }
 
     public void delete(String title) {
-        int number;
-        try {
-            number = searchBook(title);
-        } catch (IllegalArgumentException exception) {
+        int index = searchBook(title);
+        if (index == -1) {
             throw new IllegalArgumentException("Не могу удалить данную книгу, так как в шкафу ее нет");
         }
-        int length = books[number].getLenInfo();
-        System.arraycopy(books, number + 1, books, number, numberBook - number - 1);
-        numberBook--;
+        int length = books[index].getLenInfo();
+        System.arraycopy(books, index + 1, books, index, numberBooks - index - 1);
+        numberBooks--;
         if (length == maxLength) {
-            setMaxLength();
+            calcLengthBookshelf();
         }
     }
 
     public void clearSelf() {
-        Arrays.fill(books, 0, numberBook, null);
-        numberBook = 0;
+        Arrays.fill(books, 0, numberBooks, null);
+        numberBooks = 0;
     }
 
-    public void addBook(String autor, String title, String year) {
-        if (books.length  == numberBook) {
+    public void addBook(Book book) {
+        if (SIZE_SHELF  == numberBooks) {
             throw new IllegalArgumentException("Шкаф переполнен, не могу добавлять новые книги");
         }
-        Book book = new Book(autor, title, year);
-        books[numberBook] = book;
-        numberBook++;
-        if (books[numberBook - 1].getLenInfo() > maxLength) {
-            setMaxLength();
+        books[numberBooks] = book;
+        numberBooks++;
+        if (books[numberBooks - 1].getLenInfo() > maxLength) {
+            calcLengthBookshelf();
         }
     }
 
     public Book[] getAllBook() {
-        return Arrays.copyOf(books, numberBook);
-    }
-
-    public int getNumberBookOnTheShelf() {
-        return numberBook;
+        return Arrays.copyOf(books, numberBooks);
     }
 
     public int getAmountFreeSpace() {
-        return books.length - numberBook;
+        return SIZE_SHELF - numberBooks;
     }
 
     public int searchBook(String bookTitle) {
-        for (int i = 0; i < numberBook; i++) {
+        for (int i = 0; i < numberBooks; i++) {
             if (bookTitle.equals(books[i].getTitle())) {
                 return i;
             }
         }
-        throw new IllegalArgumentException("Данной книги нет");
+        return -1;
     }
 
-    private void setMaxLength() {
+    private void calcLengthBookshelf() {
         maxLength = 0;
-        for (int i = 0; i < numberBook; i++) {
-            maxLength = books[i].getLenInfo() > maxLength ? books[i].getLenInfo() : maxLength;
+        for (int i = 0; i < numberBooks; i++) {
+            if (books[i].getLenInfo() > maxLength) {
+                maxLength = books[i].getLenInfo();
+            }
         }
     }
 }
